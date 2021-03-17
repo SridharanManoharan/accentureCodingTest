@@ -37,6 +37,7 @@ To-do:
 Task 3
 Look at this two-page app design:
 
+![image](https://user-images.githubusercontent.com/16112731/111550950-14843a00-8777-11eb-847b-5b5c07732999.png)
 
  
 You have 15 minutes to create a technical design to prepare this solution from the scratch. Some things you might consider:
