@@ -5,16 +5,16 @@
 async function getProcessingPage(data) {
   for (const currentState of data) {
     try {
-      if (currentState.state === "processing") {
-        console.log("Waiting for processing....");
+      if (currentState.state === 'processing') {
+        console.log('Waiting for processing....');
         await sleep(2000);
-      } else if (currentState.state === "error") {
-        await handleError(currentState);
-      } else if (currentState.state === "success") {
-        await handleSuccess();
+      } else if (currentState.state === 'error') {
+        handleError(currentState);
+      } else if (currentState.state === 'success') {
+        handleSuccess();
       }
     } catch (error) {
-      await handleError(currentState);
+      handleError(currentState);
     }
   }
 }
@@ -23,17 +23,17 @@ async function getProcessingPage(data) {
  * Function to handle error scenarios
  * @param {object} currentState
  */
-async function handleError(currentState) {
-  const { errorCode } = await currentState;
+function handleError(currentState) {
+  const { errorCode } = currentState;
   let errorMessage = {
-    title: "Error page",
+    title: 'Error page',
     message: null,
   };
   if (errorCode) {
-    if (errorCode === "NO_STOCK") {
-      errorMessage.message = "No stock has been found";
-    } else if (errorCode === "INCORRECT_DETAILS") {
-      errorMessage.message = "Incorrect details have been entered";
+    if (errorCode === 'NO_STOCK') {
+      errorMessage.message = 'No stock has been found';
+    } else if (errorCode === 'INCORRECT_DETAILS') {
+      errorMessage.message = 'Incorrect details have been entered';
     }
   }
   console.error(errorMessage);
@@ -42,13 +42,13 @@ async function handleError(currentState) {
 /**
  * Function to handle success scenarios
  */
-async function handleSuccess() {
-  const successMessage = { title: "Order complete", message: null };
+function handleSuccess() {
+  const successMessage = { title: 'Order complete', message: null };
   console.log(successMessage);
 }
 
 /**
- * Util function for settimeout
+ * Util function for setTimeout
  * @param {long} ms
  */
 function sleep(ms) {
@@ -58,14 +58,15 @@ function sleep(ms) {
 /**
  * Calling getProcessingPage function
  * @param {array[object]}
- * 
+ *
  * Note: For specific error the object should have @property errorCode
  * and errorCode can be ["INCORRECT_DETAILS" | "NO_STOCK"]
  */
 getProcessingPage([
-  { state: "error", errorCode: "INCORRECT_DETAILS" },
-  { state: "processing" },
-  { state: "success" },
-  { state: "processing" },
-  { state: "error", errorCode: "NO_STOCK" },
+  { state: 'processing' },
+  { state: 'error', errorCode: 'INCORRECT_DETAILS' },
+  { state: 'processing' },
+  { state: 'success' },
+  { state: 'processing' },
+  { state: 'error', errorCode: 'NO_STOCK' },
 ]);
