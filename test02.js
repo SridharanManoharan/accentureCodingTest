@@ -17,23 +17,20 @@ class Provider {
   static findCity(long, lat) {
     return Promise.resolve(`London`);
   }
+
+  getWeatherStats = async (longitude, latitude) => {
+    //Print the city for lat/long 51.5074 and 0.1278 in console
+    const city = await Provider.findCity(longitude, latitude);
+    console.log(`The city for ${longitude} and ${latitude} is ${city}`);
+
+    //Print the weather for lat/long 51.5074 and 0.1278
+    console.log(await Provider.getWeather(city));
+
+    //Print the weather and currency for a given city (London)
+    console.log(await Provider.getLocalCurrency(city));
+  };
 }
 
-const getWeatherStats = async () => {
-  const longitude = 51.5074;
-  const latitude = 0.1278;
+const provider = new Provider();
 
-  //Print the city for lat/long 51.5074 and 0.1278 in console
-  const city = await Provider.findCity(longitude, latitude);
-  console.log(`The city for ${longitude} and ${latitude} is ${city}`);
-
-  //Print the weather for lat/long 51.5074 and 0.1278
-  const weather = await Provider.getWeather(city);
-  console.log(weather);
-
-  //Print the weather and currency for a given city (London)
-  const currency = await Provider.getLocalCurrency(city);
-  console.log(currency);
-};
-
-getWeatherStats();
+provider.getWeatherStats(51.5074, 0.1278);
